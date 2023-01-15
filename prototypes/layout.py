@@ -9,43 +9,44 @@ size_scaled_string = "x".join([str(int(x)) for x in size_scaled]) #converted to 
 root = tk.Tk() #create window
 root.geometry(size_scaled_string) #change size of window
 
+##### WINDOW FRAME #####
+window_frame = tk.Frame(root, bg="brown")
+window_frame.grid(row=0, column=0, sticky=N+E+S+W)
+
 ##### MENU BAR - Contain the menu selections #####
-menu_bar = tk.Frame(root, bg="red") #creates a frame that will house the menu buttons
-menu_bar.grid(row=0, column=0,sticky=N+E+S+W) #puts the menu bar onto the main grid on root
+menu_bar_frame = tk.Frame(window_frame, bg="red") #creates a frame that will house the menu buttons
+menu_bar_frame.grid(row=0, column=0, columnspan=3, sticky=N+E+S+W) #puts the menu bar onto the main grid on root
 #sticky NSEW ensures it spans the whole of the cell
 #padx and pady move the menu bar away from the borders of the grid
 
-##### MAIN FRAME - Will separate side panes and canvas/toolbars ##### 
-main_frame = tk.Frame(root, bg="green")
-main_frame.grid(row=1, column=0, sticky=N+E+S+W)
-
 ##### LEFT PANEL - Contains the tool windows on the left #####
-left_panel = tk.Frame(main_frame, bg="yellow", padx=10, pady=10, width=200)
-left_panel.grid(row=0, column=0, sticky=W+N+S)
+left_panel = tk.Frame(window_frame, bg="yellow", padx=10, pady=10, width=200)
+left_panel.grid(row=1, column=0, sticky=W+N+S)
 
 ##### RIGHT PANEL - Contains the tool windows on the left #####
-right_panel = tk.Frame(main_frame, bg="yellow", padx=10, pady=10, width=200) #pad doesnt work?------------------------------------
-right_panel.grid(row=0, column=2, sticky=E+N+S)
+right_panel = tk.Frame(window_frame, bg="yellow", padx=10, pady=10, width=200) #pad doesnt work?------------------------------------
+right_panel.grid(row=1, column=2, sticky=E+N+S)
 
 ##### TOP TOOLBAR - Contains the quick access tools on the top #####
-top_toolbar = tk.Frame(main_frame, bg="blue", width=1000, height=50)
-top_toolbar.grid(row=0, column=1, sticky=N)
+top_toolbar = tk.Frame(window_frame, bg="blue", width=1000, height=50)
+top_toolbar.grid(row=1, column=1, sticky=N)
 
 ##### BOTTOM TOOLBAR - Contains the quick access tools on the top #####
-bottom_toolbar = tk.Frame(main_frame, bg="blue", width=1000, height=50)
-bottom_toolbar.grid(row=0, column=1, sticky=S)
+bottom_toolbar = tk.Frame(window_frame, bg="blue", width=1000, height=50)
+bottom_toolbar.grid(row=1, column=1, sticky=S)
 
 ##### CANVAS #####
-canvas = Canvas(main_frame, bg="white", width=size_scaled[0] * 0.7, height=size_scaled[1] * 0.7)
-canvas.grid(row=0, column=1)
+canvas = Canvas(window_frame, bg="white", width=size_scaled[0] * 0.7, height=size_scaled[1] * 0.7)
+canvas.grid(row=1, column=1)
 
-root.columnconfigure(0, weight=1) #the first column of root will have a weight of 1 (relative scaling)
-root.rowconfigure(0, weight=2)
-root.rowconfigure(1, weight=100)
 
-main_frame.columnconfigure(0, weight=0)
-main_frame.columnconfigure(1, weight=1)
-main_frame.columnconfigure(2, weight=0)
-main_frame.rowconfigure(0, weight=1)
+root.columnconfigure(0, weight=1)
+root.rowconfigure(0, weight=1)
+
+window_frame.columnconfigure(0, weight=0) #the first column of root will have a weight of 1 (relative scaling)
+window_frame.columnconfigure(1, weight=1) 
+window_frame.columnconfigure(2, weight=0) 
+window_frame.rowconfigure(0, weight=2)
+window_frame.rowconfigure(1, weight=100)
 
 root.mainloop()
